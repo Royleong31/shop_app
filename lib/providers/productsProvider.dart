@@ -6,8 +6,7 @@ class Products with ChangeNotifier {
     Product(
       id: 'p1',
       title: 'Red Shirt',
-      description:
-          'A red shirt - it is pretty red!',
+      description: 'A red shirt - it is pretty red!',
       price: 29.99,
       imageUrl:
           'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
@@ -38,11 +37,6 @@ class Products with ChangeNotifier {
     ),
   ];
 
-  void addProduct() {
-    // _items.add(value);
-    notifyListeners();
-  }
-
   Product findById(String id) {
     return _items.firstWhere((element) => element.id == id);
   }
@@ -52,6 +46,34 @@ class Products with ChangeNotifier {
   }
 
   void refresh() {
+    notifyListeners();
+  }
+
+  void addProduct(Product product) {
+    final newProduct = Product(
+      id: DateTime.now().toString(),
+      title: product.title,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+    );
+
+    _items.add(newProduct);
+
+    notifyListeners();
+  }
+
+  void updateProducts(String id, Product newProduct) {
+    final prodIndex = _items.indexWhere((prod) => prod.id == id);
+    print('product index is $prodIndex');
+    if (prodIndex < 0) return;
+    _items[prodIndex] = newProduct;
+    print(_items[prodIndex].title);
+    notifyListeners();
+  }
+
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
     notifyListeners();
   }
 
