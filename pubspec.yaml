@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   bordered_text: ^1.0.1
   cupertino_icons: ^1.0.2
+  http: ^0.13.0
   intl: ^0.17.0
   provider: ^5.0.0
 
