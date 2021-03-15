@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:bordered_text/bordered_text.dart';
 import 'package:shop_app/models/product.dart';
+import 'package:shop_app/providers/authProvider.dart';
 import 'package:shop_app/providers/cartProvider.dart';
 import 'package:shop_app/providers/productsProvider.dart';
 import 'package:shop_app/screens/productDetailScreen.dart';
@@ -35,7 +36,8 @@ class ProductItem extends StatelessWidget {
               color: Theme.of(context).accentColor,
               onPressed: () async {
                 try {
-                  await product.toggleFavouriteStatus();
+                  await product.toggleFavouriteStatus(
+                      Provider.of<Auth>(context, listen: false).token, Provider.of<Auth>(context, listen: false).userId);
                 } catch (e) {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text(e.toString())));
